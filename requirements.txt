@@ -1,4 +1,4 @@
-pyrogram
+pyrofork
 TgCrypto
 pymongo[srv]
 Flask==2.2.2
