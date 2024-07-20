@@ -54,7 +54,7 @@ async def approve(_, m : Message):
 @app.on_message(filters.command("start"))
 async def op(_, m :Message):
     try:
-        await app.get_chat_member(cfg.CHID, m.from_user.id) 
+        await app.get_chat_member(m.from_user.id) 
         if m.chat.type == enums.ChatType.PRIVATE:
             keyboard = InlineKeyboardMarkup(
                 [
@@ -81,22 +81,13 @@ async def op(_, m :Message):
             await m.reply_text("**🦊 Hello {}!\nwrite me private for more details**".format(m.from_user.first_name), reply_markup=keyboar)
         print(m.from_user.first_name +" Is started Your Bot!")
 
-    except UserNotParticipant:
-        key = InlineKeyboardMarkup(
-            [
-                [
-                    InlineKeyboardButton("🍀 Check Again 🍀", "chk")
-                ]
-            ]
-        )
-        await m.reply_text("**⚠️Access Denied!⚠️\n\nPlease Join @{} to use me.If you joined click check again button to confirm.**".format(cfg.FSUB), reply_markup=key)
 
 #━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ callback ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 @app.on_callback_query(filters.regex("chk"))
 async def chk(_, cb : CallbackQuery):
     try:
-        await app.get_chat_member(cfg.CHID, cb.from_user.id)
+        await app.get_chat_member(cb.from_user.id)
         if cb.message.chat.type == enums.ChatType.PRIVATE:
             keyboard = InlineKeyboardMarkup(
                 [
